@@ -4,6 +4,7 @@ package aood.battleship;
  * A position in a game of battleship
  * 
  * @author Matthew Clark
+ * @author Charush Minna
  */
 public class Position {
     private int row;
@@ -66,5 +67,15 @@ public class Position {
      */
     public int getCol() {
         return col + 1;
+    }
+
+    /**
+     * Gets the position in string form.
+     * 
+     * @return [row]-[column]
+     */
+    @Override
+    public String toString() {
+        return getRow() + "-" + getCol();
     }
 }
