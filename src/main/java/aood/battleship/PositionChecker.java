@@ -20,7 +20,17 @@ public class PositionChecker
         if (input.length == 2)
         {
             char row = input[0].charAt(0);
-            int col = Integer.parseInt(input[1]);
+            int col;
+            try {
+
+                col = Integer.parseInt(input[1]);
+
+            } catch (Exception e) {
+
+                return new Position(-1, -1);
+                
+            }
+            
 
             if (row - 'A' >= 0 && 
                 row - 'A' < 10 &&
@@ -34,5 +44,11 @@ public class PositionChecker
 
         //return for invalid format
         return new Position(-1, -1);
+    }
+
+    public static void main (String[] args)
+    {
+        System.out.println(PositionChecker.checkPosition("@-9"));
+        System.out.println(PositionChecker.checkPosition(""));
     }
 }
