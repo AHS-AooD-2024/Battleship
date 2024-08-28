@@ -46,9 +46,12 @@ public class PositionChecker
         return new Position(-1, -1);
     }
 
+    /* 
     public static void main (String[] args)
     {
         System.out.println(PositionChecker.checkPosition("@-9"));
         System.out.println(PositionChecker.checkPosition(""));
     }
+    */
+    
 }
