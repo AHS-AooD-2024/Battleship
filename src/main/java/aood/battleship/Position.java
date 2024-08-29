@@ -1,12 +1,21 @@
 package aood.battleship;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * A position in a game of battleship
  * 
  * @author Matthew Clark
  * @author Charush Minna
  */
-public class Position {
+public class Position implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private int row;
     private int col;
 
@@ -77,5 +86,42 @@ public class Position {
     @Override
     public String toString() {
         return getRow() + "-" + getCol();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + row;
+        result = prime * result + col;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Position other = (Position) obj;
+        if (row != other.row)
+            return false;
+        if (col != other.col)
+            return false;
+        return true;
+    }
+
+    // Compress the position to one byte
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        byte encoded = (byte)((row << 4) | (col & 0b1111));
+        out.write(encoded);
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        byte encoded = in.readByte();
+        this.row = encoded >> 4;
+        this.col = encoded & 0b1111;
     }
 }
