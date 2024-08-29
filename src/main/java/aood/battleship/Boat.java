@@ -9,6 +9,13 @@ public class Boat {
     private Type type;
     private Position pos;
     private String orient;
+    private int hits;
+
+    public enum Orientation {
+        Horizontal,
+        Vertical
+        ;
+    }
 
     public enum Type { 
         AircraftCarrier(5, 'A'), 
@@ -42,7 +49,7 @@ public class Boat {
      * @param pos the position of the boat
      * @param orient the orientation of boat
      */
-    public Boat(Type type, Position pos, String orient)
+    public Boat(Type type, Position pos, Orientation orient)
     {
         this.type = type;
         this.pos = pos;
@@ -75,7 +82,7 @@ public class Boat {
      * Returns the size of boat based on Type
      * 
      */
-    public size()
+    public int size()
     {
         return type.size();
     }
@@ -87,7 +94,11 @@ public class Boat {
      */
     public onBoat(Position target)
     {
-        
+        if (type.pos() == target)
+        {
+            return true;
+        }
+        else { return false; }
     }
 
     /**
@@ -97,7 +108,9 @@ public class Boat {
      */
     public isHit(Position target)
     {
-        
+        if(onBoat(target)) {
+            
+        }
     }
 
     /**
@@ -116,7 +129,8 @@ public class Boat {
      */
     public sunk()
     {
-        
+        // if the least significant n = size() bits are 1, the boat is sunk
+        // return (hits + 1) == (1 << size());
     }
 
     /**
