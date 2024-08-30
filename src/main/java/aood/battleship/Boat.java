@@ -6,6 +6,8 @@ import java.util.*;
  * A boat in a game of battleship
  * 
  * @author Charush Minna
+ * @author Abhay Nagaraj
+ * @author Matthew Clark
  */
 public class Boat implements Iterable<Position> {
     private Type type;
