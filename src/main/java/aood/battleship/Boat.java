@@ -1,15 +1,17 @@
 package aood.battleship;
 
+import java.util.*;
+
 /**
  * A boat in a game of battleship
  * 
  * @author Charush Minna
  */
-public class Boat {
+public class Boat implements Iterable<Position> {
     private Type type;
     private Position pos;
-    private String orient;
-    private int hits;
+    private Orientation orient;
+    private ArrayList<Position> hits;
 
     public enum Orientation {
         Horizontal,
@@ -54,6 +56,7 @@ public class Boat {
         this.type = type;
         this.pos = pos;
         this.orient = orient;
+        hits = new ArrayList<>(size());
     }
 
     /**
@@ -65,7 +68,8 @@ public class Boat {
         return type.name();
     }
 
-    public Type getType() {
+    public Type getType() 
+    {
         return type;
     }
 
@@ -92,13 +96,14 @@ public class Boat {
      * 
      * @param target position guessed by player
      */
-    public onBoat(Position target)
+    public boolean onBoat(Position target)
     {
-        if (type.pos() == target)
-        {
-            return true;
+        for (Position pos : this){
+            if(pos.equals(target))
+                return true;
         }
-        else { return false; }
+        
+        return false;
     }
 
     /**
@@ -106,11 +111,9 @@ public class Boat {
      * 
      * @param target position guessed by player
      */
-    public isHit(Position target)
+    public boolean isHit(Position target)
     {
-        if(onBoat(target)) {
-            
-        }
+        return hits.contains(target);
     }
 
     /**
@@ -118,37 +121,74 @@ public class Boat {
      * 
      * @param target position guessed by player
      */
-    public hit(Position target)
+    public void hit(Position target)
     {
-        
+        if(onBoat(target))
+            hits.add(target);
     }
 
     /**
      * Returns whether a ship has been hit on all squares
      * 
      */
-    public sunk()
+    public boolean isSunk()
     {
         // if the least significant n = size() bits are 1, the boat is sunk
         // return (hits + 1) == (1 << size());
+
+        for(Position pos : this){
+            if(!isHit(pos))
+                return false;
+        }
+        return true;
+        
     }
 
     /**
      * Returns Position where the boat will start
      * 
      */
-    public position()
+    public Position getPosition()
     {
-        
+        return pos;
     }
 
     /**
      * Returns the direction of the ship
      * 
      */
-    public direction()
+    public Orientation getDirection()
     {
-        
+        return orient;
+    }
+
+    public boolean isVertical() {
+        return direction().equals(Orientation.Vertical);
+    }
+    
+    public boolean isHorizontal() {
+        return direction().equals(Orientation.Horizontal);
+    }
+
+    @Override
+    public Iterator<Position> iterator(){
+        return new Iterator<>(){
+            private int i = 0;
+            
+            @Override
+            public Position next(){
+                if(isHorizontal)
+                    return new Position(getPosition().getRowIndex(), getPosition().getColumnIndex() + i);
+                else
+                    return new Position(getPosition().getRowIndex() + i, getPosition().getColumnIndex());
+                i++;
+            }
+
+            @Override
+            public boolean hasNext(){
+                return i < size();
+            }
+        }
     }
 
 }
