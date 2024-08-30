@@ -165,32 +165,31 @@ public class Boat implements Iterable<Position> {
     }
 
     public boolean isVertical() {
-        return direction().equals(Orientation.Vertical);
+        return getDirection().equals(Orientation.Vertical);
     }
     
     public boolean isHorizontal() {
-        return direction().equals(Orientation.Horizontal);
+        return getDirection().equals(Orientation.Horizontal);
     }
 
     @Override
     public Iterator<Position> iterator(){
-        return new Iterator<>(){
+        return new Iterator<Position>(){
             private int i = 0;
             
             @Override
             public Position next(){
-                if(isHorizontal)
-                    return new Position(getPosition().getRowIndex(), getPosition().getColumnIndex() + i);
+                if(isHorizontal())
+                    return new Position(getPosition().getRowIndex(), getPosition().getColIndex() + i++);
                 else
-                    return new Position(getPosition().getRowIndex() + i, getPosition().getColumnIndex());
-                i++;
+                    return new Position(getPosition().getRowIndex() + i++, getPosition().getColIndex());
             }
 
             @Override
             public boolean hasNext(){
                 return i < size();
             }
-        }
+        };
     }
 
 }
