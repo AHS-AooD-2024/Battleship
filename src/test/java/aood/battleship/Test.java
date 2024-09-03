@@ -12,12 +12,22 @@ public class Test {
 
     public static void main(String[] args) {
         fails = new ArrayList<>();
-
+        Test.help();
         tryThrow();
     }
 
-    public static void positions() {
+    public static void help() {
+        Position pos = new Position(1, 1);
+        Position pos2 = new Position('B', 2);
         
+        assertTrue(pos.equals(pos2));
+
+        Boat a = new Boat(Boat.Type.AircraftCarrier, pos, Boat.Orientation.Horizontal);
+        Boat b = new Boat(Boat.Type.Battleship, pos, Boat.Orientation.Horizontal);
+        Boat c = new Boat(Boat.Type.Cruiser, pos, Boat.Orientation.Horizontal);
+        Boat d = new Boat(Boat.Type.Destroyer, pos, Boat.Orientation.Horizontal);
+        Boat s = new Boat(Boat.Type.Submarine, pos, Boat.Orientation.Vertical);
+        System.out.println(a.getAbbreviation());
     }
 
     public static void assertTrue(boolean cond) {
