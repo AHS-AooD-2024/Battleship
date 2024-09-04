@@ -5,12 +5,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Scanner;
 
 /**
  * A position in a game of battleship
  * 
  * @author Matthew Clark
  * @author Charush Minna
+ * @author Abhay Nagaraj
+ * 
  */
 public class Position implements Serializable {
     @Serial
@@ -40,6 +43,15 @@ public class Position implements Serializable {
     public Position(int rowi, int coli) {
         this.row = rowi;
         this.col = coli;
+    }
+
+    public Position() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a position: ");
+        Position tempPos = PositionChecker.checkPosition(input.nextLine());
+        row = tempPos.getRowIndex();
+        col = tempPos.getColIndex();
+        input.close();
     }
 
     /**

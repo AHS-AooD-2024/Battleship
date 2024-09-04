@@ -5,6 +5,7 @@ import java.util.*;
 
 /**
  * Test
+ * 
  */
 public class Test {
 
@@ -12,22 +13,31 @@ public class Test {
 
     public static void main(String[] args) {
         fails = new ArrayList<>();
-        Test.help();
+        Test.positionTester();
         tryThrow();
     }
 
-    public static void help() {
-        Position pos = new Position(1, 1);
-        Position pos2 = new Position('B', 2);
-        
-        assertTrue(pos.equals(pos2));
+    public static void positionTester() {
+        Position intIntPos = new Position(0, 0);
+        System.out.println(intIntPos.getRow());
+        System.out.println(intIntPos.getCol());
+        System.out.println(intIntPos.getRowIndex());
+        System.out.println(intIntPos.getColIndex());
+        System.out.println(intIntPos.toString());
 
-        Boat a = new Boat(Boat.Type.AircraftCarrier, pos, Boat.Orientation.Horizontal);
-        Boat b = new Boat(Boat.Type.Battleship, pos, Boat.Orientation.Horizontal);
-        Boat c = new Boat(Boat.Type.Cruiser, pos, Boat.Orientation.Horizontal);
-        Boat d = new Boat(Boat.Type.Destroyer, pos, Boat.Orientation.Horizontal);
-        Boat s = new Boat(Boat.Type.Submarine, pos, Boat.Orientation.Vertical);
-        System.out.println(a.getAbbreviation());
+        Position charIntPos = new Position('B', 2);
+        System.out.println(charIntPos.getRow());
+        System.out.println(charIntPos.getCol());
+        System.out.println(charIntPos.getRowIndex());
+        System.out.println(charIntPos.getColIndex());
+        System.out.println(charIntPos.toString());
+
+        Position defaultConstructorPos = new Position();
+        System.out.println(defaultConstructorPos.getRow());
+        System.out.println(defaultConstructorPos.getCol());
+        System.out.println(defaultConstructorPos.getRowIndex());
+        System.out.println(defaultConstructorPos.getColIndex());
+        System.out.println(defaultConstructorPos.toString());
     }
 
     public static void assertTrue(boolean cond) {
