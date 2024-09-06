@@ -38,6 +38,13 @@ public class Test {
         System.out.println(defaultConstructorPos.getRowIndex());
         System.out.println(defaultConstructorPos.getColIndex());
         System.out.println(defaultConstructorPos.toString());
+
+        Position inputPosition = Position.getFromConsole("Enter a position: ");
+        System.out.println(inputPosition.getRow());
+        System.out.println(inputPosition.getCol());
+        System.out.println(inputPosition.getRowIndex());
+        System.out.println(inputPosition.getColIndex());
+        System.out.println(inputPosition.toString());
     }
 
     public static void assertTrue(boolean cond) {
