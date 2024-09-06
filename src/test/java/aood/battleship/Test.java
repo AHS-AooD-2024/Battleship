@@ -17,6 +17,7 @@ public class Test {
 
     public static void main(String[] args) {
         fails = new ArrayList<>();
+        Test.positionTester();
         Test.boatTester();
         tryThrow();
     }
