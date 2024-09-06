@@ -1,20 +1,25 @@
 package aood.battleship;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serial;
+// import java.io.Serial;
 import java.io.Serializable;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 /**
  * A position in a game of battleship
  * 
  * @author Matthew Clark
  * @author Charush Minna
+ * @author Abhay Nagaraj
+ * 
  */
 public class Position implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+    // @Serial
+    private static final long serialVersionUID = 4L;
 
     private int row;
     private int col;
@@ -41,6 +46,86 @@ public class Position implements Serializable {
         this.row = rowi;
         this.col = coli;
     }
+
+    /**
+     * Constructs a position at {@code (0, 0)}.
+     */
+    public Position() {
+        this(0, 0);
+    }
+
+    /**
+     * Gets a position value from an input stream.
+     * 
+     * @param in The stream to take input from. If it is an {@link ObjectInputStream}, serialization
+     * as specified by {@link #readObject(ObjectInputStream)} will be preformed, otherwise, a line
+     * of the stream will be read and parsed by {@link PositionChecker#checkPosition(String)}.
+     * @return A position as parsed. Will return a {@code (-1, -1)} position.
+     */
+    public static Position get(InputStream in) {
+        if (in == null) {
+            throw new NullPointerException("Input cannot be null.");
+        }
+
+        if(in instanceof ObjectInputStream){
+            // Standard serialization
+            Position pos = new Position();
+            try {
+                pos.readObject((ObjectInputStream) in);
+            } catch (ClassNotFoundException | IOException e) {
+                // Reusing the already allocated position
+                pos.col = -1;
+                pos.row = -1;
+                return pos;
+            }
+            return pos;
+        } else {
+            // Try to read a string I guess
+            try (Scanner scanner = new Scanner(in)) {
+                return PositionChecker.checkPosition(scanner.nextLine());
+            } catch (NoSuchElementException e) {
+                // Error value
+                return new Position(-1, -1);
+            }
+        }
+    }
+
+    /**
+     * Gets a position from {@link System#in} after outputting a message to 
+     * {@link System#out}.
+     * <p>
+     * {@link System#setIn(InputStream)} and {@link System#setOut(java.io.PrintStream)}
+     * can be used to change the behaviour of this method.
+     * 
+     * @param message A prompt message formatted with args.
+     * @param args Format arguments
+     * @return A position parsed from system input.
+     */
+    public static Position getFromConsole(String message, Object... args) {
+        System.out.format(message, args);
+        return getFromConsole();
+    }
+
+    /**
+     * Gets a position from {@link System#in}.
+     * <p>
+     * {@link System#setIn(InputStream)} can be used to change the behaviour 
+     * of this method.
+     * 
+     * @return A position parsed from system input.
+     */
+    public static Position getFromConsole() {
+        return get(System.in);
+    }
+
+    // public Position() {
+    //     Scanner input = new Scanner(System.in);
+    //     System.out.print("Enter a position: ");
+    //     Position tempPos = PositionChecker.checkPosition(input.nextLine());
+    //     row = tempPos.getRowIndex();
+    //     col = tempPos.getColIndex();
+    //     input.close();
+    // }
 
     /**
      * Gets the index of the row of this position.
