@@ -1,6 +1,10 @@
 package aood.battleship;
 
 import java.util.function.*;
+
+import aood.battleship.Boat.Orientation;
+import aood.battleship.Boat.Type;
+
 import java.util.*;
 
 /**
@@ -13,8 +17,50 @@ public class Test {
 
     public static void main(String[] args) {
         fails = new ArrayList<>();
-        Test.positionTester();
+        Test.boatTester();
         tryThrow();
+    }
+    public static void boatTester() {
+        //Boat Constructor
+        Position topPosition = new Position(0, 5);
+        Position bottomPosition = new Position(9, 5);
+        Position leftPosition = new Position(5, 0);
+        Position rightPosition = new Position(5, 9);
+        Position midPosition = new Position(4, 4);
+
+        Boat a = new Boat(Type.AircraftCarrier, topPosition, Orientation.Horizontal);
+        Boat b = new Boat(Type.Battleship, bottomPosition, Orientation.Horizontal);
+        Boat c = new Boat(Type.Cruiser, leftPosition, Orientation.Vertical);
+        Boat d = new Boat(Type.Destroyer, rightPosition, Orientation.Vertical);
+        Boat s = new Boat(Type.Submarine, midPosition, Orientation.Horizontal);
+
+        //name method
+        System.out.println(a.getName());
+        
+        //type method
+        System.out.println(b.getType());
+
+        //abbreviation method
+        System.out.println(c.getAbbreviation());
+
+        //size method
+        System.out.println(d.size());
+
+        //hits
+        System.out.println(s.isHit(s.getPosition()));
+        s.hit(s.getPosition());
+        System.out.println(s.isHit(s.getPosition()));
+
+        //sunk method
+        System.out.println(d.isSunk());
+        d.hit(d.getPosition());
+        d.hit(new Position(6, 9));
+        System.out.println(d.isSunk());
+
+        //Horizontal + Vertical Orientation methods
+        System.out.println(a.getDirection());
+        System.out.println(a.isVertical());
+        System.out.println(a.isHorizontal());
     }
 
     public static void positionTester() {
