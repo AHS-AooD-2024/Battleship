@@ -1,9 +1,18 @@
 package aood.battleship;
 
-public interface Ocean {
-    void place(Boat boat);
+import aood.battleship.exceptions.BoatOverlapException;
+import aood.battleship.exceptions.OceanOutOfBoundsException;
 
-    default void place(Boat.Type type, Boat.Orientation orient, Position pos) {
+public interface Ocean {
+    /**
+     * Places a boat in the ocean.
+     *
+     * @param boat The boat to place
+     */
+    void place(Boat boat) throws BoatOverlapException, OceanOutOfBoundsException;
+
+    default void place(Boat.Type type, Boat.Orientation orient, Position pos)
+            throws BoatOverlapException, OceanOutOfBoundsException {
         place(new Boat(type, pos, orient));
     }
 
