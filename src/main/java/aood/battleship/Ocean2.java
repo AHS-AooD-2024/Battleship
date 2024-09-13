@@ -8,12 +8,11 @@ import java.util.ArrayList;
 /**
  * Ocean class
  * 
+ * @author Nathan Li
  */
 public class Ocean2 implements Ocean {
 
     private ArrayList<Boat> BoatArrayOcean;
-    private final int HEIGHT = 10;
-    private final int WIDTH = 10;
 
     public Ocean2()
     {
@@ -21,9 +20,8 @@ public class Ocean2 implements Ocean {
     }
 
     @Override
-    public void place(Boat boat) throws BoatOverlapException, IndexOutOfBoundsException{
-        // TODO Auto-generated method stub
-
+    public void place(Boat boat) throws BoatOverlapException, IndexOutOfBoundsException
+    {
         for (Position pos : boat)
         {
             if (pos.equals(PositionChecker(pos)))
@@ -42,7 +40,6 @@ public class Ocean2 implements Ocean {
 
     @Override
     public void shoot(Position pos) {
-        // TODO Auto-generated method stub
         for (Boat placedBoat : BoatArrayOcean)
         {
             if (placedBoat.onBoat(pos) && !placedBoat.isHit(pos))
@@ -55,8 +52,6 @@ public class Ocean2 implements Ocean {
 
     @Override
     public boolean isHit(Position pos) {
-        // TODO Auto-generated method stub
-
         for (Boat placedBoat : BoatArrayOcean)
         {
             if (placedBoat.onBoat(pos) && !placedBoat.isHit(pos))
@@ -69,20 +64,17 @@ public class Ocean2 implements Ocean {
 
     @Override
     public char getBoatInitial(Position pos) {
-        // TODO Auto-generated method stub
         for (Boat placedBoat : BoatArrayOcean)
         {
            if (placedBoat.onBoat(pos))
                 return placedBoat.getAbbreviation();
         }
-        //assumed that position is hit
-        //shouldn't reach here
+
         return '\0';
     }
 
     @Override
     public Boat get(Position pos) {
-        // TODO Auto-generated method stub
         for (Boat placedBoat : BoatArrayOcean)
         {
             if (placedBoat.onBoat(pos))
@@ -94,7 +86,6 @@ public class Ocean2 implements Ocean {
 
     @Override
     public Type getBoatType(Position pos) {
-        // TODO Auto-generated method stub
         Boat temp = get(pos);
         if (temp != null)
             return temp.getType();
@@ -103,8 +94,6 @@ public class Ocean2 implements Ocean {
 
     @Override
     public String getBoatName(Position pos) {
-        // TODO Auto-generated method stub
-
         Boat temp = get(pos);
         if (temp != null)
             return temp.getName();
