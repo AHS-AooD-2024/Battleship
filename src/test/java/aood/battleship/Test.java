@@ -21,6 +21,11 @@ public class Test {
         Test.boatTester();
         tryThrow();
     }
+
+    public static void oceanTester()
+    {
+        Ocean2 ocean = new Ocean2();
+    }
     public static void boatTester() {
         //Boat Constructor
         Position topPosition = new Position(0, 5);

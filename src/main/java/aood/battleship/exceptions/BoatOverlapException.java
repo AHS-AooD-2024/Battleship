@@ -10,4 +10,5 @@ public class BoatOverlapException extends Exception {
     public BoatOverlapException(Boat boat) {
       super("Could not place boat " + boat + " due to overlap.");
     }
+
 }
