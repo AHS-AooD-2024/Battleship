@@ -24,6 +24,7 @@ public class Ocean2 implements Ocean {
     {
         for (Position pos : boat)
         {
+            // FIXME What is going on here?
             if (pos.equals(PositionChecker(pos)))
             {
                 for (Boat placedBoat : BoatArrayOcean)
@@ -111,7 +112,7 @@ public class Ocean2 implements Ocean {
     }
 
     @Override
-    public boolean isAllSunk(Position pos) {
+    public boolean isAllSunk() {
         for (Boat placedBoat : BoatArrayOcean)
         {
             if (!placedBoat.isSunk())

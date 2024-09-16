@@ -104,18 +104,17 @@ public interface Ocean {
      * @return {@code true} if there is a sunken boat present, {@code false}
      * otherwise.
      *
-     * @see #isAllSunk(Position)
+     * @see #isAllSunk()
      * @see Boat#isSunk()
      */
     boolean isSunk(Position pos);
 
     /**
      * Checks if every boat present has been sunk.
-     * @param pos The position to check from.
      * @return {@code true} if every boat has been sunk, {@code false} otherwise.
      *
      * @see #isSunk(Position)
      * @see Boat#isSunk()
      */
-    boolean isAllSunk(Position pos);
+    boolean isAllSunk();
 }
