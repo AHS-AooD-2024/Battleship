@@ -25,7 +25,8 @@ public class Ocean2 implements Ocean {
         for (Position pos : boat)
         {
             // FIXME What is going on here?
-            if (pos.equals(PositionChecker(pos)))
+//            if (pos.equals(PositionChecker(pos)))
+            if(true)
             {
                 for (Boat placedBoat : BoatArrayOcean)
                 {

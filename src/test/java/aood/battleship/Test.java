@@ -4,6 +4,7 @@ import java.util.function.*;
 
 import aood.battleship.Boat.Orientation;
 import aood.battleship.Boat.Type;
+import aood.battleship.exceptions.BoatOverlapException;
 
 import java.util.*;
 
@@ -19,12 +20,24 @@ public class Test {
         fails = new ArrayList<>();
         Test.positionTester();
         Test.boatTester();
+
+        Test.oceanTester();
+
         tryThrow();
     }
 
-    public static void oceanTester()
-    {
-        Ocean2 ocean = new Ocean2();
+    public static void oceanTester() {
+        BoatArrayOcean bao = new BoatArrayOcean();
+
+
+        try {
+            bao.place(Type.AircraftCarrier, Orientation.Vertical, new Position('A', 4));
+        } catch (BoatOverlapException e) {
+            fail(e.getMessage());
+            e.printStackTrace();
+        }
+        System.out.println(bao);
+        System.out.println(bao.getGridView());
     }
     public static void boatTester() {
         //Boat Constructor

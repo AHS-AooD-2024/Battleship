@@ -8,6 +8,41 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.function.Consumer;
 
+/**
+ * An {@link Ocean} implementation for battleship.
+ * <p>
+ * This implementation tracks solely the boats themselves, and
+ * will not use any space for any empty position in the ocean.
+ * <p>
+ * This implementation also provides the {@link #getGridView()}
+ * method, which returns a grid style representation of the ocean
+ * that is easier to comprehend. For example:
+ * <pre>
+ * + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10+
+ * A   |   |   | A |   |   |   |   |   |   |
+ * + - + - + - + - + - + - + - + - + - + - +
+ * B   |   |   | A |   |   |   |   |   |   |
+ * + - + - + - + - + - + - + - + - + - + - +
+ * C   |   |   | A |   |   | C |   |   |   |
+ * + - + - + - + - + - + - + - + - + - + - +
+ * D   |   |   | A |   |   | C |   |   |   |
+ * + - + - + - + - + - + - + - + - + - + - +
+ * E   |   |   | A |   |   | C |   |   |   |
+ * + - + - + - + - + - + - + - + - + - + - +
+ * F   |   |   |   |   |   |   |   |   |   |
+ * + - + - + - + - + - + - + - + - + - + - +
+ * G   |   | B | B | B | B |   |   |   |   |
+ * + - + - + - + - + - + - + - + - + - + - +
+ * H   |   |   |   |   |   |   | S |   |   |
+ * + - + - + - + - + - + - + - + - + - + - +
+ * I   | D | D | D |   |   |   | S |   |   |
+ * + - + - + - + - + - + - + - + - + - + - +
+ * J   |   |   |   |   |   |   |   |   |   |
+ * + - + - + - + - + - + - + - + - + - + - +
+ * </pre>
+ *
+ * @author Matthew Clark
+ */
 public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
     private final Boat[] boats;
     
@@ -207,6 +242,7 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
     @Override
     public Boat get(Position pos) {
         for(Boat boat : boats) {
+            if(boat == null) break;
             if(boat.onBoat(pos)) {
                 return boat;
             }
@@ -238,6 +274,7 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
     @Override
     public boolean isAllSunk() {
         for(Boat boat : boats) {
+            if(boat == null) break;
             if(!boat.isSunk())
                 return false;
         }
@@ -259,5 +296,44 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
         for(int i = 0; i < q; i++){
             action.accept(boats[i]);
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        BoatArrayOcean other = (BoatArrayOcean) obj;
+        return Objects.deepEquals(boats, other.boats);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(boats);
+    }
+
+    @Override
+    public String toString() {
+        return "BoatArrayOcean{" +
+                "boats=" + Arrays.toString(boats) +
+                '}';
+    }
+
+    public String getGridView() {
+        StringBuilder sb = new StringBuilder("+ 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10+\n");
+        for(int row = 0; row < ROWS; row++) {
+            sb.append((char)(row + 'A'));
+            for(int col = 0; col < COLS; col++) {
+                Position here = new Position(row, col);
+
+                char ch = getBoatInitial(here);
+                // Replace null with space
+                ch = ch != 0 ? ch : ' ';
+
+                sb.append(' ').append(ch).append(" |");
+            }
+            sb.append("\n+ - + - + - + - + - + - + - + - + - + - +\n");
+        }
+
+        return sb.toString();
     }
 }
