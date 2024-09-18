@@ -13,6 +13,8 @@ import java.util.ArrayList;
 public class Ocean2 implements Ocean {
 
     private ArrayList<Boat> BoatArrayOcean;
+    private final ROW = 10;
+    private final COL = 10;
 
     public Ocean2()
     {
@@ -20,13 +22,11 @@ public class Ocean2 implements Ocean {
     }
 
     @Override
-    public void place(Boat boat) throws BoatOverlapException, IndexOutOfBoundsException
+    public void place(Boat boat) throws BoatOverlapException, OceanOutOfBoundsException
     {
         for (Position pos : boat)
         {
-            // FIXME What is going on here?
-//            if (pos.equals(PositionChecker(pos)))
-            if(true)
+            if(pos.getRowIndex() >= 0 && pos.getRowIndex() < ROW && pos.getColIndex() >= 0 && pos.getColIndex() < COL)
             {
                 for (Boat placedBoat : BoatArrayOcean)
                 {
@@ -35,7 +35,7 @@ public class Ocean2 implements Ocean {
                 }
             }
             else
-                throw new IndexOutOfBoundsException();
+                throw new OceanOutOfBoundsException();
         }
         BoatArrayOcean.add(boat);
     }
@@ -66,12 +66,9 @@ public class Ocean2 implements Ocean {
 
     @Override
     public char getBoatInitial(Position pos) {
-        for (Boat placedBoat : BoatArrayOcean)
-        {
-           if (placedBoat.onBoat(pos))
-                return placedBoat.getAbbreviation();
-        }
-
+        Boat temp = get(pos);
+        if (temp != null)
+            return temp.getAbbreviation();
         return '\0';
     }
 
