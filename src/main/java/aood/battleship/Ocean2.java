@@ -13,8 +13,8 @@ import java.util.ArrayList;
 public class Ocean2 implements Ocean {
 
     private ArrayList<Boat> BoatArrayOcean;
-    private final ROW = 10;
-    private final COL = 10;
+    private final int ROW = 10;
+    private final int COL = 10;
 
     public Ocean2()
     {
