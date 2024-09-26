@@ -211,8 +211,8 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
         final Position pos2 = boat2.getPosition();
         // Assume boats are same direction
         if (boat1.getDirection() == Boat.Orientation.Horizontal)
-             return pos1.getRowIndex() != pos2.getRowIndex();
-        else return pos1.getColIndex() != pos2.getColIndex();
+             return pos1.getRowIndex() == pos2.getRowIndex();
+        else return pos1.getColIndex() == pos2.getColIndex();
     }
 
     @Override
