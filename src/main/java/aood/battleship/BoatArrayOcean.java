@@ -127,7 +127,6 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
 
     private static void checkOverlap(Boat boat1, Boat boat2) throws BoatOverlapException {
         if(boat1.getDirection() == boat2.getDirection()) {
-            System.out.println("same direction");
           checkOverlapSameDirection(boat1, boat2);
         } else {
           checkOverlapDifferentDirections(boat1, boat2);
