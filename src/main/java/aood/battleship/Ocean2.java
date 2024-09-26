@@ -35,7 +35,7 @@ public class Ocean2 implements Ocean {
                 }
             }
             else
-                throw new OceanOutOfBoundsException();
+                throw new OceanOutOfBoundsException("");
         }
         BoatArrayOcean.add(boat);
     }
