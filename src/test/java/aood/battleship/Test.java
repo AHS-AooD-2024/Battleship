@@ -27,7 +27,7 @@ public class Test {
     }
 
     public static void oceanTester() {
-        BoatArrayOcean bao = new BoatArrayOcean();
+        Ocean bao = new Ocean2(); //BoatArrayOcean();
         Boat testBoat = new Boat(Type.AircraftCarrier, new Position('A', 4), Orientation.Vertical);
         Boat invalidBoat = new Boat(Type.AircraftCarrier, new Position('B', 4), Orientation.Vertical);
         Position testBoatPosition = testBoat.getPosition();
