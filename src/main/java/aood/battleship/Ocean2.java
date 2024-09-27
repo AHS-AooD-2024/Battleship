@@ -13,8 +13,8 @@ import java.util.ArrayList;
 public class Ocean2 implements Ocean {
 
     private ArrayList<Boat> BoatArrayOcean;
-    private final int ROW = 10;
-    private final int COL = 10;
+    private final int ROWS = 10;
+    private final int COLS = 10;
 
     public Ocean2()
     {
@@ -26,7 +26,7 @@ public class Ocean2 implements Ocean {
     {
         for (Position pos : boat)
         {
-            if(pos.getRowIndex() >= 0 && pos.getRowIndex() < ROW && pos.getColIndex() >= 0 && pos.getColIndex() < COL)
+            if(pos.getRowIndex() >= 0 && pos.getRowIndex() < ROWS && pos.getColIndex() >= 0 && pos.getColIndex() < COLS)
             {
                 for (Boat placedBoat : BoatArrayOcean)
                 {
@@ -56,7 +56,7 @@ public class Ocean2 implements Ocean {
     public boolean isHit(Position pos) {
         for (Boat placedBoat : BoatArrayOcean)
         {
-            if (placedBoat.onBoat(pos) && !placedBoat.isHit(pos))
+            if (placedBoat.isHit(pos))
             {
                 return true;
             }
@@ -117,5 +117,26 @@ public class Ocean2 implements Ocean {
                 return false;
         }
         return true;
+    }
+
+    
+    @Override
+    public String getGridView() {
+        StringBuilder sb = new StringBuilder("+ 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10+\n");
+        for(int row = 0; row < ROWS; row++) {
+            sb.append((char)(row + 'A'));
+            for(int col = 0; col < COLS; col++) {
+                Position here = new Position(row, col);
+
+                char ch = getBoatInitial(here);
+                // Replace null with space
+                ch = ch != 0 ? ch : ' ';
+
+                sb.append(' ').append(ch).append(" |");
+            }
+            sb.append("\n+ - + - + - + - + - + - + - + - + - + - +\n");
+        }
+
+        return sb.toString();
     }
 }
