@@ -117,4 +117,10 @@ public interface Ocean {
      * @see Boat#isSunk()
      */
     boolean isAllSunk();
+
+    /**
+     * Returs a grid view of coean
+     * @return String representing grid of ocean
+     */
+    String getGridView();
 }
