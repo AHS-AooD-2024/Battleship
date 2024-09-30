@@ -30,7 +30,6 @@ public interface BattleshipGrid {
      * @param pos The position to check.
      * @return {@code true} if the position has recorded a hit,
      * {@code false} otherwise
-    boolean isHit(Position pos);
      */
     boolean isHit(Position pos);
 
