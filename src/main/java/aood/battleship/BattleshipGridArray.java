@@ -1,5 +1,10 @@
 package aood.battleship;
 
+/**
+ * An {@link BattleshipGrid} implementation for battleship.
+ * 
+ * @author Abhay Nagaraj
+ */
 public class BattleshipGridArray implements BattleshipGrid {
     private GridPosition[][] grid;
     final int ROW = 10;
@@ -16,45 +21,44 @@ public class BattleshipGridArray implements BattleshipGrid {
 
     @Override
     public void shoot(Position pos, boolean isHit, char boatInitial) {
+        int tempRow = pos.getRowIndex();
+        int tempCol = pos.getColIndex();
         if (isHit) {
-            int tempRow = pos.getRowIndex();
-            int tempCol = pos.getColIndex();
             grid[tempRow][tempCol].setState("HIT");
             grid[tempRow][tempCol].setHitBoat(boatInitial);
         }
         else {
-            int tempRow = pos.getRowIndex();
-            int tempCol = pos.getColIndex();
             grid[tempRow][tempCol].setState("MISS");
         }
     }
     @Override
     public boolean isHit(Position pos) {
-        int tempRow = pos.getRowIndex();
-        int tempCol = pos.getColIndex();
-        if (grid[tempRow][tempCol].getState().equals("HIT")) {
-            return true;
-        }
-        return false;
+        return isBlank(pos, "HIT");
     }
     @Override
     public boolean isMiss(Position pos) {
-        int tempRow = pos.getRowIndex();
-        int tempCol = pos.getColIndex();
-        if (grid[tempRow][tempCol].getState().equals("MISS")) {
-            return true;
-        }
-        return false;
+        return isBlank(pos, "MISS");
     }
     @Override
     public boolean isEmpty(Position pos) {
+        return isBlank(pos, "EMPTY");
+    }
+
+    /**
+     * Streamlines is___ methods
+     * @param pos position passed into is___ method
+     * @param state state tested for in is___ method
+     * @return whether the chosen position is in the checked state
+     */
+    private boolean isBlank(Position pos, String state) {
         int tempRow = pos.getRowIndex();
         int tempCol = pos.getColIndex();
-        if (grid[tempRow][tempCol].getState().equals("EMPTY")) {
+        if (grid[tempRow][tempCol].getState().equals(state)) {
             return true;
         }
         return false;
     }
+
     @Override
     public char getBoatInitial(Position pos) {
         return grid[pos.getRowIndex()][pos.getColIndex()].getHitBoat();
