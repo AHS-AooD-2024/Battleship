@@ -20,10 +20,49 @@ public class Test {
         fails = new ArrayList<>();
         Test.positionTester();
         Test.boatTester();
-
         Test.oceanTester();
 
+        Test.gridTester();
+
         tryThrow();
+    }
+
+    public static void gridTester()
+    {
+        BattleshipGrid grid = new BattleshipGridArray();
+        Position topLeft = new Position(0, 0);
+        Position middle = new Position(4, 4);
+        grid.shoot(topLeft, true, 'A');
+
+        //isHit method
+        System.out.println("Expected true: " + grid.isHit(topLeft));
+        assertTrue(grid.isHit(topLeft));
+
+        //isMiss method
+        System.out.println("Expected false: " + grid.isMiss(middle));
+        assertTrue(!grid.isMiss(middle));
+
+        //isEmpty method
+        System.out.println("Expected true: " + grid.isEmpty(middle));
+        assertTrue(grid.isEmpty(middle));
+
+        grid.shoot(middle, false, 'D');
+
+        //isMiss true case
+        System.out.println("Expected true: " + grid.isMiss(middle));
+        assertTrue(grid.isMiss(middle));
+
+        //isHit false case
+        System.out.println("Expected false: " + grid.isHit(middle));
+        assertTrue(!grid.isHit(middle));
+
+        //getBoatInitial method
+        System.out.println("Expected 'A': " + grid.getBoatInitial(topLeft));
+        assertTrue(grid.getBoatInitial(topLeft) == 'A');
+        
+        //getBoatInitial miss case
+        System.out.println("Expected '0': " + grid.getBoatInitial(middle));
+        assertTrue(!(grid.getBoatInitial(middle) == 'D'));
     }
 
     public static void oceanTester() {
