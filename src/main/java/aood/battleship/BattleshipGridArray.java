@@ -14,7 +14,7 @@ public class BattleshipGridArray implements BattleshipGrid {
         grid = new GridPosition[ROW][COL];
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COL; j++) {
-                grid[ROW][COL] = new GridPosition();
+                grid[i][j] = new GridPosition();
             }
         }
     }
