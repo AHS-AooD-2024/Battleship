@@ -53,7 +53,7 @@ public interface BattleshipGrid {
 
     /**
      * Gets the character initial of the boat that has
-     * been recorded to have been hit. Should return {@code '\0'}
+     * been recorded to have been hit. Should return {@code '0'}
      * if the space was not hit.
      *
      * @param pos The position to get from.

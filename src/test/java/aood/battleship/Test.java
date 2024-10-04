@@ -29,7 +29,8 @@ public class Test {
 
     public static void gridTester()
     {
-        BattleshipGrid grid = new BattleshipGridArray();
+//        BattleshipGrid grid = new BattleshipGridArray();
+        BattleshipGrid grid = new CharArrayBattleshipGrid();
         Position topLeft = new Position(0, 0);
         Position middle = new Position(4, 4);
         grid.shoot(topLeft, true, 'A');
