@@ -18,6 +18,8 @@ public class Test {
 
     public static void main(String[] args) {
         fails = new ArrayList<>();
+        
+        // run all tests
         Test.positionTester();
         Test.boatTester();
         Test.oceanTester();
@@ -68,16 +70,31 @@ public class Test {
 
     public static void oceanTester() {
         BoatArrayOcean bao = new BoatArrayOcean();
-
-
+        Boat testBoat = new Boat(Type.AircraftCarrier, new Position('A', 4), Orientation.Vertical);
+        Boat invalidBoat = new Boat(Type.AircraftCarrier, new Position('B', 4), Orientation.Vertical);
+        Position testBoatPosition = testBoat.getPosition();
+        //place
         try {
-            bao.place(Type.AircraftCarrier, Orientation.Vertical, new Position('A', 4));
+            bao.place(testBoat);
+            bao.place(invalidBoat);
+            
         } catch (BoatOverlapException e) {
             fail(e.getMessage());
             e.printStackTrace();
         }
         System.out.println(bao);
         System.out.println(bao.getGridView());
+        
+        //shoot
+        bao.shoot(testBoatPosition);
+        System.out.println(bao.isHit(testBoatPosition));
+        System.out.println(bao.isSunk(testBoatPosition));
+        System.out.println(bao.isAllSunk());
+
+        //get boat attributes
+        System.out.println(bao.getBoatInitial(testBoatPosition));
+        System.out.println(bao.getBoatName(testBoatPosition));
+        System.out.println(bao.getBoatType(testBoatPosition));
     }
     public static void boatTester() {
         //Boat Constructor
