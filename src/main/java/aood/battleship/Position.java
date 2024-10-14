@@ -23,7 +23,7 @@ public class Position implements Serializable {
 
     private int row;
     private int col;
-
+    
     /**
      * Constructs a position with a given row and column (e.g. A-2)
      * 
