@@ -31,7 +31,12 @@ public class Test {
         tryThrow();
     }
     public static void oceanP2Tester() {
-        placeAllBoats();
+        BoatArrayOcean bao = new BoatArrayOcean();
+        bao.placeAllBoats();
+        for (int i = 0; i < 5; i++) {
+            System.out.println(bao.getBoat(i).getAbbreviation());
+            System.out.println(bao.getBoat(i).getPosition());
+        }
     }
     public static void gridTester()
     {
