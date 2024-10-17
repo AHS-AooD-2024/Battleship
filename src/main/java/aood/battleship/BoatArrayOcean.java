@@ -339,7 +339,6 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
 
     public void placeAllBoats()
     {
-        int i = 0;
         for (Boat.Type boatType : Boat.Type.values())
         {
             try
@@ -360,9 +359,9 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
         int col = (int)(Math.random() * COLS);
 
         if (o == Boat.Orientation.Horizontal)
-            col = (int)(Math.random() * COLS - boatType.size());
+            col = (int)(Math.random() * (COLS - boatType.size()));
         else    
-            row -= (int)(Math.random() * ROWS - boatType.size());
+            row -= (int)(Math.random() * (ROWS - boatType.size()));
 
         Position pos = new Position(row, col);
 
