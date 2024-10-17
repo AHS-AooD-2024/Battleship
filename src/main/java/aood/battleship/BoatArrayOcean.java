@@ -361,7 +361,7 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
         if (o == Boat.Orientation.Horizontal)
             col = (int)(Math.random() * (COLS - boatType.size()));
         else    
-            row -= (int)(Math.random() * (ROWS - boatType.size()));
+            row = (int)(Math.random() * (ROWS - boatType.size()));
 
         Position pos = new Position(row, col);
 
