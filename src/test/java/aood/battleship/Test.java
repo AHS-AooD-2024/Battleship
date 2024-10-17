@@ -75,6 +75,8 @@ public class Test {
         //getBoatInitial miss case
         System.out.println("Expected '0': " + grid.getBoatInitial(middle));
         assertTrue(!(grid.getBoatInitial(middle) == 'D'));
+
+        System.out.println(grid);
     }
 
     public static void oceanP1Tester() {
@@ -146,6 +148,7 @@ public class Test {
         System.out.println(a.getDirection());
         System.out.println(a.isVertical());
         System.out.println(a.isHorizontal());
+        
     }
 
     public static void positionTester() {
