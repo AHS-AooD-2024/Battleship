@@ -340,27 +340,33 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
     public void placeAllBoats()
     {
         int i = 0;
-        for (Type boatType : Type.values())
+        for (Boat.Type boatType : Boat.Type.values())
         {
-            Orientation o = Orientation.values()[(int)(Math.random() * 2)];
-            int row = (int)(Math.random() * ROWS);
-            int col = (int)(Math.random() * COLS);
-
-            if (o == Orientation.Horizontal)
-                col -= boatType.size();
-            else    
-                row -= boatType.size();
-
-            Position pos = new Position(row, col);
             try
             {
-                place(new Boat(boatType, pos, ))
+                placeRandomBoat(boatType);
             }
             catch (BoatOverlapException e)
             {
-
+                System.out.println("overlap");
             }
         }
+    }
+    private void placeRandomBoat(Boat.Type boatType) throws BoatOverlapException
+    {
+        Boat.Orientation o = Boat.Orientation.values()[(int)(Math.random() * 2)];
+
+        int row = (int)(Math.random() * ROWS);
+        int col = (int)(Math.random() * COLS);
+
+        if (o == Boat.Orientation.Horizontal)
+            col = (int)(Math.random() * COLS - boatType.size());
+        else    
+            row -= (int)(Math.random() * ROWS - boatType.size());
+
+        Position pos = new Position(row, col);
+
+        place(new Boat(boatType, pos, o));
     }
 
     public Boat getBoat(int index)
