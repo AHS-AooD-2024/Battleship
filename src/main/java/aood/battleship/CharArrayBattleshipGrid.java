@@ -12,7 +12,7 @@ public class CharArrayBattleshipGrid implements BattleshipGrid {
     private static final int ROWS = 10;
     private static final int COLS = 10;
 
-    private static final char EMPTY = ' ';
+    private static final char EMPTY = '.';
     private static final char MISS = '*';
 
     private final char[][] grid;
@@ -64,9 +64,9 @@ public class CharArrayBattleshipGrid implements BattleshipGrid {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("+ 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10+\n");
+        StringBuilder sb = new StringBuilder("   1 2 3 4 5 6 7 8 9 10\n");
         for(int row = 0; row < ROWS; row++) {
-            sb.append((char)(row + 'A'));
+            sb.append((char)(row + 'A') + " ");
             for(int col = 0; col < COLS; col++) {
                 Position here = new Position(row, col);
 
@@ -74,9 +74,9 @@ public class CharArrayBattleshipGrid implements BattleshipGrid {
                 // Replace null with space
                 ch = ch != 0 ? ch : ' ';
 
-                sb.append(' ').append(ch).append(" |");
+                sb.append(' ').append(ch);
             }
-            sb.append("\n+ - + - + - + - + - + - + - + - + - + - +\n");
+            sb.append("\n\n");
         }
 
         return sb.toString();
