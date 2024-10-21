@@ -117,4 +117,10 @@ public interface Ocean {
      * @see Boat#isSunk()
      */
     boolean isAllSunk();
+
+
+    /**
+     * Places 5 random boats
+     */
+    void placeAllBoats();
 }
