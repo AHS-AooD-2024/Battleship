@@ -364,7 +364,6 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
             col = (int)(Math.random() * (COLS - boatType.size()));
 
         Position pos = new Position(row, col);
-        System.out.println(pos);
 
         place(new Boat(boatType, pos, o));
     }
