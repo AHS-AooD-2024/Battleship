@@ -347,7 +347,6 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
             }
             catch (BoatOverlapException e)
             {
-                System.out.println("overlap");
                 i--;
             }
         }
