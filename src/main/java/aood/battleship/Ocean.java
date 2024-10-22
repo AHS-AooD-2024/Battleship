@@ -1,5 +1,9 @@
 package aood.battleship;
 
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+import aood.battleship.Boat.Orientation;
 import aood.battleship.exceptions.BoatOverlapException;
 import aood.battleship.exceptions.OceanOutOfBoundsException;
 
@@ -38,6 +42,61 @@ public interface Ocean {
     default void place(Boat.Type type, Boat.Orientation orient, Position pos)
             throws BoatOverlapException, OceanOutOfBoundsException {
         place(new Boat(type, pos, orient));
+    }
+
+    
+    /**
+     * Places all five boats -- one of each type -- randomly in the ocean.
+     */
+    default void placeAllBoats() {
+        Random rng = ThreadLocalRandom.current();
+
+        for(Boat.Type type : Boat.Type.values()) {
+            while(true) {
+                Boat.Orientation orient = rng.nextBoolean() ? Orientation.Horizontal : Orientation.Vertical;
+                
+                final int furthestDown;
+                final int furthestRight;
+
+                // Avoid random positions that are doomed to fail.
+                if(orient == Orientation.Horizontal) {
+                    furthestDown = height();
+                    furthestRight = width() - type.size();
+                } else {
+                    furthestDown = height() - type.size();
+                    furthestRight = width();
+                }
+
+                Position pos = new Position(rng.nextInt(furthestDown), rng.nextInt(furthestRight));
+
+                try {
+                    place(type, orient, pos);
+                    
+                    // success
+                    break;
+                } catch (OceanOutOfBoundsException | BoatOverlapException e) {
+                    // try again
+                    continue;
+                }
+            }
+        }
+    }
+
+    /**
+     * Gets the width of this ocean, or the number of columns. Is 10 by default;
+     * 
+     * @return The number of columns.
+     */
+    default int width() {
+        return 10;
+    }
+
+    /**
+     * Gets the height of this ocean, or the number of rows. Is 10 by default;
+     * @return
+     */
+    default int height() {
+        return 10;
     }
 
     /**
@@ -117,10 +176,4 @@ public interface Ocean {
      * @see Boat#isSunk()
      */
     boolean isAllSunk();
-
-
-    /**
-     * Places 5 random boats
-     */
-    void placeAllBoats();
 }
