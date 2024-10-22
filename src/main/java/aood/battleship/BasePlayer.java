@@ -152,6 +152,7 @@ public abstract class BasePlayer implements BattleshipPlayer {
     @Override
     public final void updatePlayer(Position pos, boolean isHit, char initial, Boat boat, boolean isSunk, boolean gameOver,
             boolean tooManyTurns, int turns) {
+        System.out.println("Position in BasePlayer: " + pos);
         updateGrid(pos, isHit, initial);
 
         onShoot(new HitInfo(pos, boat, turns, gameOver));

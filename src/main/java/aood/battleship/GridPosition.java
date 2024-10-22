@@ -17,7 +17,7 @@ public class GridPosition {
      */
     public GridPosition() {
         state = "EMPTY";
-        hitBoat = '0';
+        hitBoat = '.';
     }
 
     /**

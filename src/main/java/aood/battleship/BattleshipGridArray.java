@@ -21,6 +21,7 @@ public class BattleshipGridArray implements BattleshipGrid {
 
     @Override
     public void shoot(Position pos, boolean isHit, char boatInitial) {
+        System.out.println("Position in BattleshipGridArray: " + pos);
         int tempRow = pos.getRowIndex();
         int tempCol = pos.getColIndex();
         if (isHit) {
@@ -29,6 +30,7 @@ public class BattleshipGridArray implements BattleshipGrid {
         }
         else {
             grid[tempRow][tempCol].setState("MISS");
+            grid[tempRow][tempCol].setHitBoat('*');
         }
     }
     @Override
@@ -62,5 +64,25 @@ public class BattleshipGridArray implements BattleshipGrid {
     @Override
     public char getBoatInitial(Position pos) {
         return grid[pos.getRowIndex()][pos.getColIndex()].getHitBoat();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("   1 2 3 4 5 6 7 8 9 10\n");
+        for(int row = 0; row < ROW; row++) {
+            sb.append((char)(row + 'A') + " ");
+            for(int col = 0; col < COL; col++) {
+                Position here = new Position(row, col);
+
+                char ch = getBoatInitial(here);
+                // Replace null with space
+                ch = ch != 0 ? ch : ' ';
+
+                sb.append(' ').append(ch);
+            }
+            sb.append("\n\n");
+        }
+
+        return sb.toString();
     }
 }

@@ -10,9 +10,14 @@ public class ConsolePlayer extends BasePlayer {
         input = new Scanner(System.in);
     }
 
+    public ConsolePlayer(BattleshipGrid grid) {
+        super();
+        input = new Scanner(System.in);
+    }
+
     @Override
     public void resetGrid() {
-        super.resetGrid(new CharArrayBattleshipGrid());
+        super.resetGrid(new BattleshipGridArray());
     }
 
     @Override
