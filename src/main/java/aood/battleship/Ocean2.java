@@ -135,7 +135,6 @@ public class Ocean2 implements Ocean {
                 place(new Boat(types[i], new Position((int)(Math.random() * (ROW - dRow)), (int)(Math.random() * (COL - dCol))), orients[orient]));
             } catch (BoatOverlapException e) {
                 i--;
-                System.out.println("Overlap");
             }
         }
     }
