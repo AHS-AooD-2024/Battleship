@@ -358,7 +358,6 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
                 place(new Boat(types[i], new Position((int)(Math.random() * (ROWS - dRow)), (int)(Math.random() * (COLS - dCol))), orients[orient]));
             } catch (BoatOverlapException e) {
                 i--;
-                System.out.println("Overlap");
             }
         }
     }
