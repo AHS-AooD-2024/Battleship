@@ -1,5 +1,6 @@
 package aood.battleship;
 
+import aood.battleship.Boat.Orientation;
 import aood.battleship.Boat.Type;
 import aood.battleship.exceptions.OceanOutOfBoundsException;
 import aood.battleship.exceptions.BoatOverlapException;
@@ -35,7 +36,7 @@ public class Ocean2 implements Ocean {
                 }
             }
             else
-                throw new OceanOutOfBoundsException("");
+                throw new OceanOutOfBoundsException(pos);
         }
         BoatArrayOcean.add(boat);
     }
@@ -56,7 +57,7 @@ public class Ocean2 implements Ocean {
     public boolean isHit(Position pos) {
         for (Boat placedBoat : BoatArrayOcean)
         {
-            if (placedBoat.onBoat(pos) && !placedBoat.isHit(pos))
+            if (placedBoat.isHit(pos))
             {
                 return true;
             }
@@ -117,5 +118,32 @@ public class Ocean2 implements Ocean {
                 return false;
         }
         return true;
+    }
+
+    @Override
+    public void placeAllBoats() {
+        Type[] types = Type.values();
+        Orientation[] orients = Orientation.values();
+        for (int i = 0; i < types.length; i++)
+        {
+            int orient = (int)(Math.random() * 2);
+
+            int dRow = orient == 0 ? 0 : types[i].size();
+            int dCol = orient == 1 ? 0 : types[i].size();
+
+            try {
+                place(new Boat(types[i], new Position((int)(Math.random() * (ROW - dRow)), (int)(Math.random() * (COL - dCol))), orients[orient]));
+            } catch (BoatOverlapException e) {
+                i--;
+                System.out.println("Overlap");
+            }
+        }
+    }
+
+
+    //Used for Testing and Debugging
+    public Boat getBoat(int i)
+    {
+        return BoatArrayOcean.get(i);
     }
 }
