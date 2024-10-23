@@ -33,8 +33,8 @@ public class Test {
     }
 
     public static void battleshipGameTester() {
-        BattleshipGridArray grid = new BattleshipGridArray();
-        ConsolePlayer player = new ConsolePlayer(grid);
+        // BattleshipGridArray grid = new BattleshipGridArray();
+        ConsolePlayer player = new ConsolePlayer();
         BoatArrayOcean bao = new BoatArrayOcean();
         BattleshipGame game = new BattleshipGame(player, bao);
         game.play();

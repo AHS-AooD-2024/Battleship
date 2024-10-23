@@ -1,13 +1,8 @@
 package aood.battleship;
 
-import java.util.Scanner;
-
 public class ConsolePlayer extends BasePlayer {
-    private Scanner input;
-
     public ConsolePlayer() {
         super();
-        input = new Scanner(System.in);
     }
 
     public ConsolePlayer(BattleshipGrid grid) {
@@ -22,30 +17,34 @@ public class ConsolePlayer extends BasePlayer {
 
     @Override
     public Position getShot() {
-        return Position.getFromConsole("Shoot somewhere: ");
+        Position pos = Position.getFromConsole("Shoot somewhere: ");
+        while (!isValid(pos)) {
+            pos = Position.getFromConsole("Invalid shot; shoot somewhere else: ");
+        }
+        return pos;
     }
 
     @Override
     protected void onShoot(HitInfo hitInfo) {
-        System.out.println(getGrid());
+        System.console().printf("%s\n", getGrid());
 
-        System.out.print("Turn #" + hitInfo.getTurn() + ": ");
+        System.console().printf("Turn #%d: ", hitInfo.getTurn());
 
         if(hitInfo.isHit()) {
             if(hitInfo.isSunk())
-                System.out.println("You sunk their " + hitInfo.getBoat().getName());
+                System.console().printf("You sunk their %s\n", hitInfo.getBoat().getName());
             else
-                System.out.println("You hit their " + hitInfo.getBoat().getName());
+                System.console().printf("You hit their %s\n", hitInfo.getBoat().getName());
         } else {
-            System.out.println(hitInfo.getPos() + " missed.");
+            System.console().printf("%s missed.\n", hitInfo.getPos());
         }
     }
 
     @Override
     protected String generateName() {
-        System.out.println("What is your name? ");
-        String name = input.nextLine();
-        System.out.println("Hello, " + name + ". That's a good name.");
+        System.console().printf("What is your name? ");
+        String name = System.console().readLine();
+        System.console().printf("Hello, %s. That's a good name.\n", name);
         return name;
     }
 

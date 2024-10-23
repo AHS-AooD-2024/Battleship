@@ -102,20 +102,65 @@ public class Position implements Serializable {
      * @return A position parsed from system input.
      */
     public static Position getFromConsole(String message, Object... args) {
-        System.out.format(message, args);
+        System.console().format(message, args);
         return getFromConsole();
     }
 
     /**
-     * Gets a position from {@link System#in}.
-     * <p>
-     * {@link System#setIn(InputStream)} can be used to change the behaviour 
-     * of this method.
+     * Gets a position from {@link System#console()}.
      * 
      * @return A position parsed from system input.
      */
     public static Position getFromConsole() {
-        return get(System.in);
+        String input = System.console().readLine();
+        return Position.parse(input);
+    }
+
+    public static Position parse(CharSequence str) {
+        if(str.length() < 2) {
+            return new Position(-1, -1);
+        }
+
+        // if the second character is some divisor (i.e. not alphanumeric), 
+        // we will ignore it while parsing
+        if(!Character.isLetterOrDigit(str.charAt(1))) {
+            return parseWithDash(str);
+        } else {
+            // otherwise the second character is part of the position input
+            return parseNoDash(str);
+        }
+    }
+
+    private static Position parseNoDash(CharSequence chars) {
+        // Filter
+        if(!Character.isLetter(chars.charAt(0))) return new Position(-1, -1);
+        char ch0 = Character.toUpperCase(chars.charAt(0));
+        if(!Character.isDigit(chars.charAt(1))) return new Position(-1, -1);
+
+        try {
+            int col = Integer.parseInt(chars, 1, chars.length(), 10);
+
+            return new Position(ch0, col);
+        } catch (NumberFormatException e) {
+            return new Position(-1, -1);
+        }
+    }
+    
+    private static Position parseWithDash(CharSequence chars) {
+        // Filter
+        if(!Character.isLetter(chars.charAt(0))) return new Position(-1, -1);
+        char ch0 = Character.toUpperCase(chars.charAt(0));
+        // Skip over the dash, because we actually don't care
+        // if its dash; leterally any character can delimit. 
+        if(!Character.isDigit(chars.charAt(2))) return new Position(-1, -1);
+
+        try {
+            int col = Integer.parseInt(chars, 2, chars.length(), 10);
+
+            return new Position(ch0, col);
+        } catch (NumberFormatException e) {
+            return new Position(-1, -1);
+        }
     }
 
     // public Position() {

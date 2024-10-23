@@ -60,4 +60,22 @@ public interface BattleshipGrid {
      * @return The initial of the boat hit at the given position.
      */
     char getBoatInitial(Position pos);
+
+    /**
+     * Gets the number of columns in this grid. Defaults to 10.
+     * 
+     * @return The width of this grid.
+     */
+    default int width() {
+        return 10;
+    }
+
+    /**
+     * Gets the number of rows in this grid. Defaults to 10.
+     * 
+     * @return The height of this grid.
+     */
+    default int height() {
+        return 10;
+    }
 }
