@@ -1,7 +1,17 @@
 package aood.battleship;
 
+/**
+ * A basic player to ease implementation of other players.
+ * 
+ * @author Matthew Clark
+ */
 public abstract class BasePlayer implements BattleshipPlayer {
-    protected class HitInfo {
+    /**
+     * A set of information on a hit.
+     * 
+     * @author Matthew Clark
+     */
+    protected static class HitInfo {
         private final Position pos;
         private final Boat boat;
         private final int turn;
@@ -14,26 +24,65 @@ public abstract class BasePlayer implements BattleshipPlayer {
             this.isGameOver = isGameOver;
         }
         
+        /**
+         * The position fired upon.
+         * 
+         * @return The position fired upon.
+         */
         public Position getPos() {
             return pos;
         }
 
+        /**
+         * The boat fired upon, or {@code null} if there is none.
+         * 
+         * @return The boat fired upon.
+         */
         public Boat getBoat() {
             return boat;
         }
 
+        /**
+         * Gets the turn this information is from.
+         * 
+         * @return The turn of the game.
+         */
         public int getTurn() {
             return turn;
         }
 
+        /**
+         * Checks if this turn ended the game.
+         * 
+         * @return {@code true} if the game is now over, {@code false} otherwise.
+         */
         public boolean isGameOver() {
             return isGameOver;
         }
 
+        /**
+         * Checks if the game ended by length rather than sinkage.
+         * 
+         * @return {@code true} id the game is over without sinking a boat.
+         */
+        public boolean isTooManyTurns() {
+            return isGameOver && !isSunk();
+        }
+
+        /**
+         * Checks if this shot actually hit anything.
+         * 
+         * @return {@code true} if a boat was hit, {@code false} otherwise.
+         */
         public boolean isHit() {
             return boat != null;
         }
 
+        /**
+         * Checks if this shot sunk the boat.
+         * 
+         * @return {@code true} if a boat was sunk, {@code false} otherwise.
+         */
         public boolean isSunk() {
             return isHit() && boat.isSunk();
         }
@@ -42,7 +91,6 @@ public abstract class BasePlayer implements BattleshipPlayer {
         public int hashCode() {
             final int prime = 31;
             int result = 1;
-            result = prime * result + getEnclosingInstance().hashCode();
             result = prime * result + ((pos == null) ? 0 : pos.hashCode());
             result = prime * result + ((boat == null) ? 0 : boat.hashCode());
             result = prime * result + turn;
@@ -58,8 +106,6 @@ public abstract class BasePlayer implements BattleshipPlayer {
             if (getClass() != obj.getClass())
                 return false;
             HitInfo other = (HitInfo) obj;
-            if (!getEnclosingInstance().equals(other.getEnclosingInstance()))
-                return false;
             if (pos == null) {
                 if (other.pos != null)
                     return false;
@@ -74,30 +120,45 @@ public abstract class BasePlayer implements BattleshipPlayer {
                 return false;
             return true;
         }
-
-        private BasePlayer getEnclosingInstance() {
-            return BasePlayer.this;
-        }
     }
 
     private String name;
     private BattleshipGrid grid;
 
+    /**
+     * Initializes with setting name to null.
+     */
     protected BasePlayer() {
         setName(null);
         resetGrid();
     }
 
+    /**
+     * Initializes this player with a given name.
+     * 
+     * @param name
+     */
     protected BasePlayer(String name) {
         setName(name);
         resetGrid();
     }
 
+    /**
+     * initializes this player with a given grid.
+     * 
+     * @param grid The grid that this player will use.
+     */
     protected BasePlayer(BattleshipGrid grid) {
         setName(null);
         resetGrid(grid);
     }
 
+    /**
+     * Initializes this player.
+     * 
+     * @param name The name of the player.
+     * @param grid The grid this player will use.
+     */
     protected BasePlayer(String name, BattleshipGrid grid) {
         setName(name);
         this.grid = grid;
@@ -114,6 +175,11 @@ public abstract class BasePlayer implements BattleshipPlayer {
     @Override
     public abstract Position getShot();
 
+    /**
+     * Called when the player recieves information about their shot.
+     * 
+     * @param hitInfo The aforementioned information.
+     */
     protected abstract void onShoot(HitInfo hitInfo);
 
     // Dependency injection is love
@@ -121,6 +187,11 @@ public abstract class BasePlayer implements BattleshipPlayer {
         this.grid = grid;
     }
 
+    /**
+     * Sets the players name.
+     * 
+     * @param name The player's new name.
+     */
     protected void setName(String name) {
         this.name = name;
     }
@@ -140,8 +211,17 @@ public abstract class BasePlayer implements BattleshipPlayer {
         onStart();
     }
 
+    /**
+     * Generates a name for this player, either from input or something else.
+     * This method is only called when a game is started with a {@code null} name.
+     * 
+     * @return The generated name;
+     */
     protected abstract String generateName();
 
+    /**
+     * Called at the beginning of the game, before any turns are taken.
+     */
     protected abstract void onStart();
 
     @Override
