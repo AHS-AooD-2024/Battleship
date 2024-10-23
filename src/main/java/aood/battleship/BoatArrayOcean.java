@@ -1,5 +1,7 @@
 package aood.battleship;
 
+import aood.battleship.Boat.Orientation;
+import aood.battleship.Boat.Type;
 import aood.battleship.exceptions.BoatOverlapException;
 import aood.battleship.exceptions.OceanFullException;
 import aood.battleship.exceptions.OceanOutOfBoundsException;
@@ -338,27 +340,25 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
     }
 
     
-    // /**
-    //  * @author Nathan Li
-    //  */
-    // @Override
-    // public void placeAllBoats() {
-    //     Type[] types = Type.values();
-    //     Orientation[] orients = Orientation.values();
-    //     for (int i = 0; i < types.length; i++)
-    //     {
-    //         int orient = (int)(Math.random() * 2);
-
-    //         int dRow = orient == 0 ? 0 : types[i].size();
-    //         int dCol = orient == 1 ? 0 : types[i].size();
-
-    //         try {
-    //             place(new Boat(types[i], new Position((int)(Math.random() * (ROWS - dRow)), (int)(Math.random() * (COLS - dCol))), orients[orient]));
-    //         } catch (BoatOverlapException e) {
-    //             i--;
-    //         }
-    //     }
-    // }
+    /**
+     * @author Nathan Li
+     */
+    @Override
+    public void placeAllBoats() {
+        Type[] types = Type.values();
+        Orientation[] orients = Orientation.values();
+        for (int i = 0; i < types.length; i++)
+        {
+            int orient = (int)(Math.random() * 2);
+            int dRow = orient == 1 ? 0 : types[i].size();
+            int dCol = orient == 0 ? 0 : types[i].size();
+            try {
+                place(new Boat(types[i], new Position((int)(Math.random() * (ROWS - dRow)), (int)(Math.random() * (COLS - dCol))), orients[orient]));
+            } catch (BoatOverlapException e) {
+                i--;
+            }
+        }
+    }
 
     //Used For Tests & Debugging
     public Boat getBoat(int index)
