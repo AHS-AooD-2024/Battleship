@@ -12,7 +12,11 @@ public class ConsolePlayer extends BasePlayer {
 
     @Override
     public Position getShot() {
-        return Position.getFromConsole("Shoot somewhere: ");
+        Position pos = Position.getFromConsole("Shoot somewhere: ");
+        while (!isValid(pos)) {
+            pos = Position.getFromConsole("Invalid shot; shoot somewhere else: ");
+        }
+        return pos;
     }
 
     @Override

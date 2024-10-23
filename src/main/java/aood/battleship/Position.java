@@ -113,7 +113,54 @@ public class Position implements Serializable {
      */
     public static Position getFromConsole() {
         String input = System.console().readLine();
-        return PositionChecker.checkPosition(input);
+        return Position.parse(input);
+    }
+
+    public static Position parse(CharSequence str) {
+        if(str.length() < 2) {
+            return new Position(-1, -1);
+        }
+
+        // if the second character is some divisor (i.e. not alphanumeric), 
+        // we will ignore it while parsing
+        if(!Character.isLetterOrDigit(str.charAt(1))) {
+            return parseWithDash(str);
+        } else {
+            // otherwise the second character is part of the position input
+            return parseNoDash(str);
+        }
+    }
+
+    private static Position parseNoDash(CharSequence chars) {
+        // Filter
+        if(!Character.isLetter(chars.charAt(0))) return new Position(-1, -1);
+        char ch0 = Character.toUpperCase(chars.charAt(0));
+        if(!Character.isDigit(chars.charAt(1))) return new Position(-1, -1);
+
+        try {
+            int col = Integer.parseInt(chars, 1, chars.length(), 10);
+
+            return new Position(ch0, col);
+        } catch (NumberFormatException e) {
+            return new Position(-1, -1);
+        }
+    }
+    
+    private static Position parseWithDash(CharSequence chars) {
+        // Filter
+        if(!Character.isLetter(chars.charAt(0))) return new Position(-1, -1);
+        char ch0 = Character.toUpperCase(chars.charAt(0));
+        // Skip over the dash, because we actually don't care
+        // if its dash; leterally any character can delimit. 
+        if(!Character.isDigit(chars.charAt(2))) return new Position(-1, -1);
+
+        try {
+            int col = Integer.parseInt(chars, 2, chars.length(), 10);
+
+            return new Position(ch0, col);
+        } catch (NumberFormatException e) {
+            return new Position(-1, -1);
+        }
     }
 
     // public Position() {
