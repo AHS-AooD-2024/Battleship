@@ -20,9 +20,8 @@ public class BattleshipGame {
         player.startGame();
         ocean.placeAllBoats();
 
-        while (turns <= 100) {
+        while (turns < 100) {
             Position tempPos = player.getShot();
-            System.out.println("Position in BattleshipGame: " + tempPos);
             ocean.shoot(tempPos);
             boolean isHit = ocean.isHit(tempPos);
             char initial = ocean.getBoatInitial(tempPos);

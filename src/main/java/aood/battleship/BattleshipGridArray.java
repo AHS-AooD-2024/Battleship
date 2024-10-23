@@ -21,7 +21,6 @@ public class BattleshipGridArray implements BattleshipGrid {
 
     @Override
     public void shoot(Position pos, boolean isHit, char boatInitial) {
-        System.out.println("Position in BattleshipGridArray: " + pos);
         int tempRow = pos.getRowIndex();
         int tempCol = pos.getColIndex();
         if (isHit) {
