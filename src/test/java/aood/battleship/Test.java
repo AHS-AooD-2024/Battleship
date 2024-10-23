@@ -20,27 +20,29 @@ public class Test {
         fails = new ArrayList<>();
         
         // run all tests
-        Test.oceanP2Tester();
         /*
+
         Test.positionTester();
         Test.boatTester();
-        Test.oceanP1Tester();
-
+        Test.oceanTester();
         Test.gridTester();
-        */
+        * 
+         */
+        Test.battleshipGameTester();
         tryThrow();
     }
-    public static void oceanP2Tester() {
+
+    public static void battleshipGameTester() {
+        // BattleshipGridArray grid = new BattleshipGridArray();
+        ConsolePlayer player = new ConsolePlayer();
         BoatArrayOcean bao = new BoatArrayOcean();
-        bao.placeAllBoats();
-        for (int i = 0; i < 5; i++) {
-            System.out.println(bao.getBoat(i).getAbbreviation());
-            System.out.println(bao.getBoat(i).getPosition());
-        }
+        BattleshipGame game = new BattleshipGame(player, bao);
+        game.play();
     }
+
     public static void gridTester()
     {
-//        BattleshipGrid grid = new BattleshipGridArray();
+//      BattleshipGrid grid = new BattleshipGridArray();
         BattleshipGrid grid = new CharArrayBattleshipGrid();
         Position topLeft = new Position(0, 0);
         Position middle = new Position(4, 4);
@@ -75,11 +77,9 @@ public class Test {
         //getBoatInitial miss case
         System.out.println("Expected '0': " + grid.getBoatInitial(middle));
         assertTrue(!(grid.getBoatInitial(middle) == 'D'));
-
-        System.out.println(grid);
     }
 
-    public static void oceanP1Tester() {
+    public static void oceanTester() {
         BoatArrayOcean bao = new BoatArrayOcean();
         Boat testBoat = new Boat(Type.AircraftCarrier, new Position('A', 4), Orientation.Vertical);
         Boat invalidBoat = new Boat(Type.AircraftCarrier, new Position('B', 4), Orientation.Vertical);
@@ -148,7 +148,6 @@ public class Test {
         System.out.println(a.getDirection());
         System.out.println(a.isVertical());
         System.out.println(a.isHorizontal());
-        
     }
 
     public static void positionTester() {

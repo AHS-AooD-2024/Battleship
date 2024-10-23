@@ -122,6 +122,12 @@ public abstract class BasePlayer implements BattleshipPlayer {
         }
     }
 
+    protected final boolean isValid(Position pos) {
+        final int rowi = pos.getRowIndex();
+        final int coli = pos.getRowIndex();
+        return rowi >= 0 && rowi < grid.height() && coli >= 0 && coli < grid.width();
+    }
+
     private String name;
     private BattleshipGrid grid;
 
@@ -232,6 +238,7 @@ public abstract class BasePlayer implements BattleshipPlayer {
     @Override
     public final void updatePlayer(Position pos, boolean isHit, char initial, Boat boat, boolean isSunk, boolean gameOver,
             boolean tooManyTurns, int turns) {
+        System.out.println("Position in BasePlayer: " + pos);
         updateGrid(pos, isHit, initial);
 
         onShoot(new HitInfo(pos, boat, turns, gameOver));
