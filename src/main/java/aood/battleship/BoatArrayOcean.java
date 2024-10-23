@@ -351,8 +351,8 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
         {
             int orient = (int)(Math.random() * 2);
 
-            int dRow = orient == 0 ? 0 : types[i].size();
-            int dCol = orient == 1 ? 0 : types[i].size();
+            int dRow = orient == 1 ? 0 : types[i].size();
+            int dCol = orient == 0 ? 0 : types[i].size();
 
             try {
                 place(new Boat(types[i], new Position((int)(Math.random() * (ROWS - dRow)), (int)(Math.random() * (COLS - dCol))), orients[orient]));
