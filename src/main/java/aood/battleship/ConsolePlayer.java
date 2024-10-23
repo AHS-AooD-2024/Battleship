@@ -7,7 +7,6 @@ public class ConsolePlayer extends BasePlayer {
 
     public ConsolePlayer(BattleshipGrid grid) {
         super();
-        input = new Scanner(System.in);
     }
 
     @Override
