@@ -102,20 +102,18 @@ public class Position implements Serializable {
      * @return A position parsed from system input.
      */
     public static Position getFromConsole(String message, Object... args) {
-        System.out.format(message, args);
+        System.console().format(message, args);
         return getFromConsole();
     }
 
     /**
-     * Gets a position from {@link System#in}.
-     * <p>
-     * {@link System#setIn(InputStream)} can be used to change the behaviour 
-     * of this method.
+     * Gets a position from {@link System#console()}.
      * 
      * @return A position parsed from system input.
      */
     public static Position getFromConsole() {
-        return get(System.in);
+        String input = System.console().readLine();
+        return PositionChecker.checkPosition(input);
     }
 
     // public Position() {
