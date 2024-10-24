@@ -365,9 +365,4 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
     {
         return boats[index];
     }
-    public static void main(String[] args) {
-        BoatArrayOcean o = new BoatArrayOcean();
-        o.placeAllBoats();
-        System.out.println(o.getGridView());
-    }
 }
