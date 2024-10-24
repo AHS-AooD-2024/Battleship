@@ -19,8 +19,9 @@ public class BattleshipGame {
 
         player.startGame();
         ocean.placeAllBoats();
+        boolean gameOver = false;
 
-        while (turns < 100) {
+        while (turns < 100 && !gameOver) {
             Position tempPos = player.getShot();
             ocean.shoot(tempPos);
             boolean isHit = ocean.isHit(tempPos);
@@ -28,7 +29,7 @@ public class BattleshipGame {
             Boat boat = ocean.get(tempPos);
             boolean isSunk = ocean.isSunk(tempPos);
             boolean tooManyTurns = turns >= 100;
-            boolean gameOver = ocean.isAllSunk() || tooManyTurns;
+            gameOver = ocean.isAllSunk() || tooManyTurns;
 
             turns++;
             player.updatePlayer(tempPos, isHit, initial, boat, isSunk, gameOver, tooManyTurns, turns);
