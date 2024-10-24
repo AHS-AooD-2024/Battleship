@@ -147,6 +147,11 @@ public class Position implements Serializable {
     }
     
     private static Position parseWithDash(CharSequence chars) {
+        // assure that there are even enough characters to parse
+        // parsing with or without dash is **not** determined by length,
+        // just if the second character is not alphanumeric
+        if(chars.length() < 3) return new Position(-1, -1);
+
         // Filter
         if(!Character.isLetter(chars.charAt(0))) return new Position(-1, -1);
         char ch0 = Character.toUpperCase(chars.charAt(0));
