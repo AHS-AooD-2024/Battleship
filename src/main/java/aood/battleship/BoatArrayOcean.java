@@ -109,17 +109,17 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
         else checkVerticalExtension(pos, size);
     }
     
-    private static void checkHorizontalExtension(Position pos, int size) {
+    private static void checkVerticalExtension(Position pos, int size) {
         final int row = pos.getRowIndex() + size;
         if(row < 0 || row >= ROWS)
-            badExtends(pos, Boat.Orientation.Horizontal, size);
+            badExtends(pos, Boat.Orientation.Vertical, size);
 
     }
 
-    private static void checkVerticalExtension(Position pos, int size) {
+    private static void checkHorizontalExtension(Position pos, int size) {
         final int col = pos.getColIndex() + size;
         if(col < 0 || col >= ROWS)
-            badExtends(pos, Boat.Orientation.Vertical, size);
+            badExtends(pos, Boat.Orientation.Horizontal, size);
 
     }
 
@@ -350,8 +350,8 @@ public class BoatArrayOcean implements Serializable, Iterable<Boat>, Ocean {
         for (int i = 0; i < types.length; i++)
         {
             int orient = (int)(Math.random() * 2);
-            int dRow = orient == 1 ? 0 : types[i].size();
-            int dCol = orient == 0 ? 0 : types[i].size();
+            int dRow = orient == 0 ? 0 : types[i].size();
+            int dCol = orient == 1 ? 0 : types[i].size();
             try {
                 place(new Boat(types[i], new Position((int)(Math.random() * (ROWS - dRow)), (int)(Math.random() * (COLS - dCol))), orients[orient]));
             } catch (BoatOverlapException e) {

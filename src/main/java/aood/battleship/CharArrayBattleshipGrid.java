@@ -76,7 +76,7 @@ public class CharArrayBattleshipGrid implements BattleshipGrid {
 
                 sb.append(' ').append(ch);
             }
-            sb.append("\n\n");
+            sb.append("\n");
         }
 
         return sb.toString();

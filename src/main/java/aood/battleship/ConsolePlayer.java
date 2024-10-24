@@ -5,6 +5,10 @@ public class ConsolePlayer extends BasePlayer {
         super();
     }
 
+    public ConsolePlayer(BattleshipGrid grid) {
+        super();
+    }
+
     @Override
     public void resetGrid() {
         super.resetGrid(new BattleshipGridArray());

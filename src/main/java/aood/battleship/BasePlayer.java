@@ -124,8 +124,9 @@ public abstract class BasePlayer implements BattleshipPlayer {
 
     protected final boolean isValid(Position pos) {
         final int rowi = pos.getRowIndex();
-        final int coli = pos.getRowIndex();
-        return rowi >= 0 && rowi < grid.height() && coli >= 0 && coli < grid.width();
+        final int coli = pos.getColIndex();
+
+        return (rowi >= 0 && rowi < grid.height() && coli >= 0 && coli < grid.width()) && grid.isEmpty(pos);
     }
 
     private String name;
