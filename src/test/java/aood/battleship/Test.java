@@ -34,10 +34,12 @@ public class Test {
 
     public static void battleshipGameTester() {
         ConsolePlayer player = new ConsolePlayer();
+        RandomCPUPlayer cpu = new RandomCPUPlayer();
         BoatArrayOcean bao = new BoatArrayOcean();
-        BattleshipGame game = new BattleshipGame(player, bao);
+        BattleshipGame game = new BattleshipGame(cpu, bao);
         int turns = game.play();
         System.out.println("Turns took to finish: " + turns);
+        System.out.println(cpu.getGrid());
     }
 
     public static void gridTester()
