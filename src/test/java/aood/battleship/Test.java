@@ -5,6 +5,7 @@ import java.util.function.*;
 import aood.battleship.Boat.Orientation;
 import aood.battleship.Boat.Type;
 import aood.battleship.exceptions.BoatOverlapException;
+import aood.battleship.PlayerEvaluator;
 
 import java.util.*;
 
@@ -28,16 +29,27 @@ public class Test {
         Test.gridTester();
         * 
          */
-        Test.battleshipGameTester();
+        Test.playerEvaluatorTester();
         tryThrow();
+    }
+
+    public static void playerEvaluatorTester() {
+        RandomCPUPlayer cpu = new RandomCPUPlayer();
+        PlayerEvaluator evaluator = new PlayerEvaluator(cpu, 100);
+        evaluator.evaluate();
+        System.out.println("Max turns took to finish: " + evaluator.maxTurns());
+        System.out.println("Minimum turns took to finish: " + evaluator.minTurns());
+        System.out.println("Avg turns took to finish: " + evaluator.averageTurns());
     }
 
     public static void battleshipGameTester() {
         ConsolePlayer player = new ConsolePlayer();
+        RandomCPUPlayer cpu = new RandomCPUPlayer();
         BoatArrayOcean bao = new BoatArrayOcean();
-        BattleshipGame game = new BattleshipGame(player, bao);
+        BattleshipGame game = new BattleshipGame(cpu, bao);
         int turns = game.play();
         System.out.println("Turns took to finish: " + turns);
+        System.out.println(cpu.getGrid());
     }
 
     public static void gridTester()
