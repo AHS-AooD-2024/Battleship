@@ -6,6 +6,7 @@ public class AbhayNagarajStrategy extends BasePlayer{
 
     private Position lastParentShot;
     private Position lastChildShot;
+    private Position lastChildHit;
 
     public AbhayNagarajStrategy() {
         super();
@@ -13,6 +14,7 @@ public class AbhayNagarajStrategy extends BasePlayer{
         lookAtChild = false;
         lastParentShot = new Position(9, 9);
         lastChildShot = new Position(9, 9);
+        lastChildHit = new Position(9, 9);
     }
 
     @Override
@@ -50,7 +52,7 @@ public class AbhayNagarajStrategy extends BasePlayer{
         else if (whichLastShot.getColIndex() != 9 && grid.isEmpty(getDirectionPosition(1, 'r', whichLastShot))) {
             temp = getDirectionPosition(1, 'r', whichLastShot);
         }
-        whichLastShot = temp;
+        lastChildShot = temp;
         return temp;
     }
 
@@ -65,8 +67,8 @@ public class AbhayNagarajStrategy extends BasePlayer{
 
     private Position checkChildBranch(BattleshipGrid grid) {
         Position temp;
-        temp = checkBranch(grid, lastChildShot);
-        if (temp == null) {
+        temp = checkBranch(grid, lastChildHit);
+        if (lastChildShot == null) {
             lookAtChild = false;
         }
         return temp;
@@ -96,26 +98,47 @@ public class AbhayNagarajStrategy extends BasePlayer{
         lastParentShot = temp;
         return temp;
     }
+
+    private Position nukeBoard(BattleshipGrid grid) {
+        Position temp = null;
+        for (int i = 0; i < grid.width(); i++) {//iterate through the whole grid
+            for (int j = 0; j < grid.height(); j++) {
+                if (grid.isEmpty(new Position(i, j))) {
+                    temp = new Position(i, j);
+                    break;
+                }
+            }
+            if (temp != null) {
+                break;
+            }
+        }
+        return temp;
+    }
+
     @Override
     public Position getShot() {
         BattleshipGrid grid = getGrid();
         //Position temp = new Position(0, 0);  
         Position temp = null;
-        if (grid.isHit(lastParentShot)) {//if the last shot was a hit, start checking branches of that shot
+        if (lastParentShot != null && grid.isHit(lastParentShot)) {//if the last shot was a hit, start checking branches of that shot
             lookAtParent = true;
         }
-        if (grid.isHit(lastChildShot)) {
+        if (lastChildShot != null && grid.isHit(lastChildShot)) {
+            lastChildHit = lastChildShot;
             lookAtChild = true;
         }
         while (temp == null) {
-            if (lookAtChild && grid.isHit(lastChildShot)) {
+            if (lastChildShot != null && lookAtChild) {
                 temp = checkChildBranch(grid);
             }
-            else if (lookAtParent) {
+            else if (lastParentShot != null && lookAtParent) {
                 temp = checkParentBranch(grid);
             }
             else {
                 temp = checkEveryOtherPosition(grid);
+                if (temp == null) {
+                    temp = nukeBoard(grid);
+                }
             }
         } 
         return temp;
@@ -124,6 +147,11 @@ public class AbhayNagarajStrategy extends BasePlayer{
     @Override
     public void resetGrid() {
         super.resetGrid(new CharArrayBattleshipGrid());
+        lastParentShot = new Position(9, 9);
+        lastChildShot = new Position(9, 9);
+        lastChildHit = new Position(9, 9);
+        lookAtChild = false;
+        lookAtParent = false;
     }
 
     @Override
