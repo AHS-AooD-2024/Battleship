@@ -42,8 +42,6 @@ public class Test {
         System.out.println("Max turns took to finish: " + evaluator.maxTurns());
         System.out.println("Minimum turns took to finish: " + evaluator.minTurns());
         System.out.println("Avg turns took to finish: " + evaluator.averageTurns());
-        System.out.format("Win rate: %2.2f%%\n", evaluator.winRate() * 100.0);
-        System.out.println("Average turns when winning: " + evaluator.averageTurnsWhenWinning());
     }
 
     public static void battleshipGameTester() {

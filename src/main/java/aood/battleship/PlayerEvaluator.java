@@ -9,12 +9,6 @@ public class PlayerEvaluator {
 
     private BattleshipPlayer player;
     private int runs;
-    
-    private int totalTurnsWhenWinning;
-    private int wins;
-
-    private double winRate;
-    private double averageTurnsWhenWinning;
 
     public PlayerEvaluator(BattleshipPlayer player, int runs) {
         this.player = player;
@@ -28,17 +22,9 @@ public class PlayerEvaluator {
             BattleshipGame game = new BattleshipGame(player, bao);
             int turns = game.play();
             totalTurns += turns;
-            if(turns < 100) {
-                totalTurnsWhenWinning += turns;
-                wins++;
-            }
             minTurns = Math.min(minTurns, turns);
             maxTurns = Math.max(maxTurns, turns);
         }
-
-        winRate = (double) wins / runs;
-
-        averageTurnsWhenWinning = (double) totalTurnsWhenWinning / runs;
 
         averageTurns = (double) totalTurns / runs;
     }
@@ -53,14 +39,6 @@ public class PlayerEvaluator {
 
     public double averageTurns() {
         return averageTurns;
-    }
-
-    public double winRate() {
-        return winRate;
-    }
-
-    public double averageTurnsWhenWinning() {
-        return averageTurnsWhenWinning;
     }
 
 }
