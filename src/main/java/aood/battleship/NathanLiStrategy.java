@@ -258,7 +258,7 @@ public class NathanLiStrategy extends BasePlayer
 
     @Override
     protected void onShoot(HitInfo hitInfo) {
-        //System.out.println(getGrid().toString());
+        System.out.println(getGrid().toString());
         if (hitInfo.isHit()) hit = true;
         if (hitInfo.isSunk())
         {

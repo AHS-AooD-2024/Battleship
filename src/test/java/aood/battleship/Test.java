@@ -5,6 +5,7 @@ import java.util.function.*;
 import aood.battleship.Boat.Orientation;
 import aood.battleship.Boat.Type;
 import aood.battleship.exceptions.BoatOverlapException;
+import aood.battleship.mclark.MatthewClarkStrategy;
 import aood.battleship.PlayerEvaluator;
 
 import java.util.*;
@@ -29,8 +30,41 @@ public class Test {
         Test.gridTester();
         * 
          */
-        Test.playerEvaluatorTester();
+        Test.strategiesEvaluatorTester();
         tryThrow();
+    }
+    public static void strategiesEvaluatorTester()
+    {
+        PlayerEvaluator evaluator = new PlayerEvaluator(new AbhayNagarajStrategy(), 100);
+        evaluator.evaluate();
+        System.out.println("Abhay's Strategy");
+        System.out.println("Max turns took to finish: " + evaluator.maxTurns());
+        System.out.println("Minimum turns took to finish: " + evaluator.minTurns());
+        System.out.println("Avg turns took to finish: " + evaluator.averageTurns() + "\n\n");
+        Position.getFromConsole();
+
+        evaluator = new PlayerEvaluator(new NathanLiStrategy(), 100);
+        evaluator.evaluate();
+        System.out.println("Nathan's Strategy");
+        System.out.println("Max turns took to finish: " + evaluator.maxTurns());
+        System.out.println("Minimum turns took to finish: " + evaluator.minTurns());
+        System.out.println("Avg turns took to finish: " + evaluator.averageTurns() + "\n\n");
+        Position.getFromConsole();
+
+        evaluator = new PlayerEvaluator(new MatthewClarkStrategy(), 100);
+        evaluator.evaluate();
+        System.out.println("Mathew's Strategy");
+        System.out.println("Max turns took to finish: " + evaluator.maxTurns());
+        System.out.println("Minimum turns took to finish: " + evaluator.minTurns());
+        System.out.println("Avg turns took to finish: " + evaluator.averageTurns() + "\n\n");
+        Position.getFromConsole();
+
+        evaluator = new PlayerEvaluator(new CharushMinnaStrategy(), 100);
+        evaluator.evaluate();
+        System.out.println("Charush's Strategy");
+        System.out.println("Max turns took to finish: " + evaluator.maxTurns());
+        System.out.println("Minimum turns took to finish: " + evaluator.minTurns());
+        System.out.println("Avg turns took to finish: " + evaluator.averageTurns() + "\n\n");
     }
 
     public static void playerEvaluatorTester() {
