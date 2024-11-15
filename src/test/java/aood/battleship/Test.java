@@ -22,31 +22,14 @@ public class Test {
         
         // run all tests
         /*
-
         Test.positionTester();
         Test.boatTester();
         Test.oceanTester();
         Test.gridTester();
-        Test.playerEvaluatorTester();
         * 
          */
-        abhayNagarajStrategyTester();
+        Test.playerEvaluatorTester();
         tryThrow();
-    }
-
-    public static void abhayNagarajStrategyTester() {
-        /*
-         * AbhayNagarajStrategy strat = new AbhayNagarajStrategy();
-            BoatArrayOcean bao = new BoatArrayOcean();
-            BattleshipGame game = new BattleshipGame(strat, bao);
-            game.play();
-         */
-        AbhayNagarajStrategy ab = new AbhayNagarajStrategy();
-        PlayerEvaluator evaluator = new PlayerEvaluator(ab, 100);
-        evaluator.evaluate();
-        System.out.println("Max turns took to finish: " + evaluator.maxTurns());
-        System.out.println("Minimum turns took to finish: " + evaluator.minTurns());
-        System.out.println("Avg turns took to finish: " + evaluator.averageTurns());
     }
 
     public static void playerEvaluatorTester() {
