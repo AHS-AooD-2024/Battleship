@@ -22,6 +22,7 @@ public class Test {
         
         // run all tests
         /*
+        
         Test.positionTester();
         Test.boatTester();
         Test.oceanTester();
