@@ -5,7 +5,6 @@ import java.util.function.*;
 import aood.battleship.Boat.Orientation;
 import aood.battleship.Boat.Type;
 import aood.battleship.exceptions.BoatOverlapException;
-import aood.battleship.mclark.MatthewClarkStrategy;
 import aood.battleship.PlayerEvaluator;
 
 import java.util.*;
@@ -36,8 +35,7 @@ public class Test {
 
     public static void playerEvaluatorTester() {
         RandomCPUPlayer cpu = new RandomCPUPlayer();
-        BattleshipPlayer player = new MatthewClarkStrategy();
-        PlayerEvaluator evaluator = new PlayerEvaluator(player, 100);
+        PlayerEvaluator evaluator = new PlayerEvaluator(cpu, 100);
         evaluator.evaluate();
         System.out.println("Max turns took to finish: " + evaluator.maxTurns());
         System.out.println("Minimum turns took to finish: " + evaluator.minTurns());
