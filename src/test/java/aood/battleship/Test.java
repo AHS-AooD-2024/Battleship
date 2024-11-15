@@ -69,7 +69,7 @@ public class Test {
 
     public static void playerEvaluatorTester() {
         RandomCPUPlayer cpu = new RandomCPUPlayer();
-        PlayerEvaluator evaluator = new PlayerEvaluator(cpu, 100);
+        PlayerEvaluator evaluator = new PlayerEvaluator(cpu, 500);
         evaluator.evaluate();
         System.out.println("Max turns took to finish: " + evaluator.maxTurns());
         System.out.println("Minimum turns took to finish: " + evaluator.minTurns());
